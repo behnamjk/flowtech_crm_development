@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flowtech CRM'),
+      home: MyHomePage(title: 'Flowtech CRM Software'),
     );
   }
 }
