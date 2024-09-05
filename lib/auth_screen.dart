@@ -1,6 +1,8 @@
+import 'package:flowtech_crm/main.dart';
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
+import 'package:go_router/go_router.dart';
 
 class AuthScreen extends StatefulWidget {
   final String title;
@@ -101,9 +103,7 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: usernameController.text.isEmpty || passwordController.text.isEmpty
-                  ? null
-                  : isLoginPage ? login : signup,
+              onPressed: ()=> context.go('/dashboard'),
               child: Text(isLoginPage ? 'Login' : 'Sign Up'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
