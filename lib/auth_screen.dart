@@ -56,16 +56,18 @@ class _AuthScreenState extends State<AuthScreen> {
           children: [
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Username',
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
             TextField(
+
+              
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
@@ -77,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 children: [
                   TextField(
                     controller: emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Email',
                       border: OutlineInputBorder(),
                     ),
@@ -85,7 +87,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(height: 16.0),
                   TextField(
                     controller: phoneNumberController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Phone Number',
                       border: OutlineInputBorder(),
                     ),
@@ -93,7 +95,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(height: 16.0),
                   TextField(
                     controller: countryController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Country',
                       border: OutlineInputBorder(),
                     ),
@@ -104,11 +106,11 @@ class _AuthScreenState extends State<AuthScreen> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: ()=> context.go('/dashboard'),
-              child: Text(isLoginPage ? 'Login' : 'Sign Up'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
               ),
+              child: Text(isLoginPage ? 'Login' : 'Sign Up'),
             ),
             const SizedBox(height: 16.0),
             TextButton(
