@@ -1,4 +1,7 @@
+import 'package:flowtech_crm/classes/auth_class.dart';
+import 'package:flowtech_crm/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DashScreen extends StatefulWidget {
   const DashScreen({super.key});
@@ -15,6 +18,7 @@ class _DashScreenState extends State<DashScreen> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+    
       setState(() {
         _tiles.add(_textController.text);
         _textController.clear();
@@ -25,9 +29,15 @@ class _DashScreenState extends State<DashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final _auth = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        
+        actions: [
+          TextButton(onPressed: ()=> _auth.signUp(email:'aa.qasemi@gmail.com', password: '123456789!!', username: 'tesst' ), child: Text('update'),),
+        ],
+        title: Text(_auth.authData.username!=null ? 'welcome ${_auth.authData.username}' : 'none'),
       ),
       body: ListView.builder(
         itemCount: _tiles.length,
@@ -35,7 +45,7 @@ class _DashScreenState extends State<DashScreen> {
           return Card(
             child: ListTile(
               
-              leading: Text('Created by : Azade Ghasemi'),
+              leading: Text('Created by : ${_auth.authData.username}'),
               title: Text(_tiles[index]),
             ),
           );
@@ -119,6 +129,7 @@ class _DashScreenState extends State<DashScreen> {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter the project end date';
+                                    
                                   }
                                   return null;
                                 },
@@ -203,6 +214,25 @@ class _DashScreenState extends State<DashScreen> {
         },
         tooltip: 'Add Tile',
         child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'School',
+          ),
+        ],
+        currentIndex: 1,
+        selectedItemColor: Colors.amber[800],
+        onTap: null,
       ),
     );
   }

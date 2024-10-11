@@ -1,4 +1,3 @@
-import 'package:flowtech_crm/main.dart';
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
