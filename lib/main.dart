@@ -1,5 +1,7 @@
 import 'package:flowtech_crm/classes/auth_class.dart';
+import 'package:flowtech_crm/classes/project_class.dart';
 import 'package:flowtech_crm/providers/auth_provider.dart';
+import 'package:flowtech_crm/providers/projects_provider.dart';
 import 'package:flutter/material.dart';
 import 'screens/auth_screen.dart';
 import 'package:appwrite/appwrite.dart';
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
 
         ChangeNotifierProvider(create: (_) => AuthProvider(AuthData(),),),
         ChangeNotifierProvider(create: (_) => AppRouter(),),
+        ChangeNotifierProvider(create: (_) => ProjectsProvider(Project())),
       ] ,
     
       child: Builder(builder: (BuildContext context){
@@ -39,14 +42,19 @@ class MyApp extends StatelessWidget {
       final router = Provider.of<AppRouter>(context);
 
         return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
       
       title: 'Flowtech Co',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData.dark(
+
+        
+        useMaterial3: true,
+
+
       ),
       routerConfig:  router.router,
     );
-      }));
+      },),);
   }
 }
 

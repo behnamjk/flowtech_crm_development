@@ -1,5 +1,6 @@
 import 'package:flowtech_crm/classes/auth_class.dart';
 import 'package:flowtech_crm/providers/auth_provider.dart';
+import 'package:flowtech_crm/providers/projects_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class _DashScreenState extends State<DashScreen> {
   final _projectDetails = <String>{};
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {  
     
       setState(() {
         _tiles.add(_textController.text);
@@ -30,27 +31,47 @@ class _DashScreenState extends State<DashScreen> {
   @override
   Widget build(BuildContext context) {
     
-    final _auth = Provider.of<AuthProvider>(context);
+    final auth = Provider.of<AuthProvider>(context);
+   
     return Scaffold(
       appBar: AppBar(
         
         actions: [
-          TextButton(onPressed: ()=> _auth.signUp(email:'aa.qasemi@gmail.com', password: '123456789!!', username: 'tesst' ), child: Text('update'),),
+          TextButton(onPressed: (){}, child: Icon(Icons.settings),),
         ],
-        title: Text(_auth.authData.username!=null ? 'welcome ${_auth.authData.username}' : 'none'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CircleAvatar(child: Icon(Icons.person),),
+            SizedBox(width: 10,),
+            Text(auth.authData.username!=null ? 'welcome ${auth.authData.username}' : 'Welcome Behnam Jafari',style: TextStyle(fontSize: 12),),
+            Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}' , style: TextStyle(fontSize: 12),), 
+          ],
+        ),  
       ),
-      body: ListView.builder(
-        itemCount: _tiles.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              
-              leading: Text('Created by : ${_auth.authData.username}'),
-              title: Text(_tiles[index]),
-            ),
-          );
-        },
-      ),
+      body: Consumer<ProjectsProvider>(builder: (context, projectProvider, child) {
+        return ListView.builder(
+          itemCount: projectProvider.projectsList.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                leading: Container(
+                  width: 100,
+                  padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  border: Border.all(),
+                 borderRadius: BorderRadius.circular(2)
+                ),  
+                child:  Center(child: Text(projectProvider.projectsList[index].author!)),),
+                trailing: Text(projectProvider.projectsList[index].createdAt!),
+                
+                title: Text(projectProvider.projectsList[index].clientName!),
+              ),
+            );
+          },    
+        );
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
