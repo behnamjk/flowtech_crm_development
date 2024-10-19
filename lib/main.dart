@@ -1,6 +1,7 @@
 import 'package:flowtech_crm/classes/auth_class.dart';
 import 'package:flowtech_crm/classes/project_class.dart';
 import 'package:flowtech_crm/providers/auth_provider.dart';
+import 'package:flowtech_crm/providers/date_picker_provider.dart';
 import 'package:flowtech_crm/providers/projects_provider.dart';
 import 'package:flutter/material.dart';
 import 'screens/auth_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider(AuthData(),),),
         ChangeNotifierProvider(create: (_) => AppRouter(),),
         ChangeNotifierProvider(create: (_) => ProjectsProvider(Project())),
+        ChangeNotifierProvider(create: (_) => DatePickerProvider(),),
       ] ,
     
       child: Builder(builder: (BuildContext context){

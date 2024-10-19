@@ -14,16 +14,16 @@ class Project {
   bool? seatLeakageTest;
   bool? functionalTest;
   bool? cvTest;
-  String? komDate;
-  String? pimDate;
-  String? apgSubmitDate;
-  String? advancedPaymentDate;
-  String? manufactutingStartDate;
-  String? progressReportCutoffDate;
+  DateTime? komDate;
+  DateTime? pimDate;
+  DateTime? apgSubmitDate;
+  DateTime? advancedPaymentDate;
+  DateTime? manufactutingStartDate;
+  DateTime? progressReportCutoffDate;
   String? inceptionPlace;
   String? deliveryPlace;
-  String? deliveryDate;
-  String? deliveryTime;
+  DateTime? deliveryDate;
+ 
 
   Project({
     this.id,
@@ -49,7 +49,7 @@ class Project {
     this.inceptionPlace,
     this.deliveryPlace,
     this.deliveryDate,
-    this.deliveryTime,
+   
   });
 
   // copyWith method
@@ -68,16 +68,16 @@ class Project {
     bool? seatLeakageTest,
     bool? functionalTest,
     bool? cvTest,
-    String? komDate,
-    String? pimDate,
-    String? apgSubmitDate,
-    String? advancedPaymentDate,
-    String? manufactutingStartDate,
-    String? progressReportCutoffDate,
+    DateTime? komDate,
+    DateTime? pimDate,
+    DateTime? apgSubmitDate,
+    DateTime? advancedPaymentDate,
+    DateTime? manufactutingStartDate,
+    DateTime? progressReportCutoffDate,
     String? inceptionPlace,
     String? deliveryPlace,
-    String? deliveryDate,
-    String? deliveryTime,
+    DateTime? deliveryDate,
+   
   }) {
     return Project(
       id: id ?? this.id,
@@ -103,7 +103,7 @@ class Project {
       inceptionPlace: inceptionPlace ?? this.inceptionPlace,
       deliveryPlace: deliveryPlace ?? this.deliveryPlace,
       deliveryDate: deliveryDate ?? this.deliveryDate,
-      deliveryTime: deliveryTime ?? this.deliveryTime,
+      
     );
   }
 
@@ -134,8 +134,8 @@ class Project {
           progressReportCutoffDate == other.progressReportCutoffDate &&
           inceptionPlace == other.inceptionPlace &&
           deliveryPlace == other.deliveryPlace &&
-          deliveryDate == other.deliveryDate &&
-          deliveryTime == other.deliveryTime;
+          deliveryDate == other.deliveryDate;
+       
 
   @override
   int get hashCode =>
@@ -161,6 +161,6 @@ class Project {
       progressReportCutoffDate.hashCode ^
       inceptionPlace.hashCode ^
       deliveryPlace.hashCode ^
-      deliveryDate.hashCode ^
-      deliveryTime.hashCode;
+      deliveryDate.hashCode;
+
 }

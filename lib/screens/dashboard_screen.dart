@@ -1,8 +1,10 @@
 import 'package:flowtech_crm/classes/auth_class.dart';
 import 'package:flowtech_crm/providers/auth_provider.dart';
 import 'package:flowtech_crm/providers/projects_provider.dart';
+import 'package:flowtech_crm/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 class DashScreen extends StatefulWidget {
   const DashScreen({super.key});
@@ -37,15 +39,15 @@ class _DashScreenState extends State<DashScreen> {
       appBar: AppBar(
         
         actions: [
-          TextButton(onPressed: (){}, child: Icon(Icons.settings),),
+          TextButton(onPressed: (){}, child: const Icon(Icons.settings),),
         ],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(child: Icon(Icons.person),),
-            SizedBox(width: 10,),
-            Text(auth.authData.username!=null ? 'welcome ${auth.authData.username}' : 'Welcome Behnam Jafari',style: TextStyle(fontSize: 12),),
-            Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}' , style: TextStyle(fontSize: 12),), 
+            const CircleAvatar(child: Icon(Icons.person),),
+            const SizedBox(width: 10,),
+            Text(auth.authData.username!=null ? 'welcome ${auth.authData.username}' : 'Welcome Behnam Jafari',style:const TextStyle(fontSize: 12),),
+            Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}' , style: const TextStyle(fontSize: 12),), 
           ],
         ),  
       ),
@@ -53,20 +55,23 @@ class _DashScreenState extends State<DashScreen> {
         return ListView.builder(
           itemCount: projectProvider.projectsList.length,
           itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                leading: Container(
-                  width: 100,
-                  padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  border: Border.all(),
-                 borderRadius: BorderRadius.circular(2)
-                ),  
-                child:  Center(child: Text(projectProvider.projectsList[index].author!)),),
-                trailing: Text(projectProvider.projectsList[index].createdAt!),
-                
-                title: Text(projectProvider.projectsList[index].clientName!),
+            return GestureDetector(
+              onTap: () => context.go('/projectDetails/${projectProvider.projectsList[index].id}',extra: projectProvider.projectsList[index].id),
+              child: Card(
+                child: ListTile(
+                  leading: Container(
+                    width: 100,
+                    padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    border: Border.all(),
+                   borderRadius: BorderRadius.circular(2)
+                  ),  
+                  child:  Center(child: Text(projectProvider.projectsList[index].author!)),),
+                  trailing: Text(projectProvider.projectsList[index].createdAt!),
+                  
+                  title: Text(projectProvider.projectsList[index].clientName!),
+                ),
               ),
             );
           },    
@@ -239,16 +244,16 @@ class _DashScreenState extends State<DashScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.person_pin_outlined),
+            label: 'Clients',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.article_outlined),
+            label: 'Projects',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.sports_score_outlined),
+            label: 'Marketing',
           ),
         ],
         currentIndex: 1,
