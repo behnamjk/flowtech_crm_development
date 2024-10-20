@@ -4,17 +4,14 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
-  
-final String projectId;
+  final String projectId;
 
-const ProjectDetailsPage({super.key, required this.projectId});
-
-
+  const ProjectDetailsPage({super.key, required this.projectId});
 
   @override
   Widget build(BuildContext context) {
-  //final String projectId = GoRouterState.of(context).extra! as String;
-  final project = Provider.of<ProjectsProvider>(context).getProjectById(projectId);
+    final project =
+        Provider.of<ProjectsProvider>(context).getProjectById(projectId);
     return Scaffold(
       appBar: AppBar(
         title: Text(project.projectTitle!),
@@ -100,7 +97,7 @@ const ProjectDetailsPage({super.key, required this.projectId});
   }
 
   // Helper method to build the project details card
-  Widget _buildDetailsCard(BuildContext context , String id) {
+  Widget _buildDetailsCard(BuildContext context, String id) {
     final project = Provider.of<ProjectsProvider>(context).getProjectById(id);
     return Card(
       elevation: 4,
@@ -127,7 +124,7 @@ const ProjectDetailsPage({super.key, required this.projectId});
             _buildDetailRow(
               context,
               'Created At',
-             '${project.createdAt}',
+              '${project.createdAt}',
               Icons.calendar_today_outlined,
             ),
             _buildDetailRow(
@@ -180,7 +177,8 @@ const ProjectDetailsPage({super.key, required this.projectId});
   }
 
   // Helper method to build rows for project details
-  Widget _buildDetailRow(BuildContext context, String label, String value, IconData icon) {
+  Widget _buildDetailRow(
+      BuildContext context, String label, String value, IconData icon) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(

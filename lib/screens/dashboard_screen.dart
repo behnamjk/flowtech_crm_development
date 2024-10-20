@@ -5,6 +5,7 @@ import 'package:flowtech_crm/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class DashScreen extends StatefulWidget {
   const DashScreen({super.key});
@@ -20,8 +21,7 @@ class _DashScreenState extends State<DashScreen> {
   final _projectDetails = <String>{};
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {  
-    
+    if (_formKey.currentState!.validate()) {
       setState(() {
         _tiles.add(_textController.text);
         _textController.clear();
@@ -32,49 +32,74 @@ class _DashScreenState extends State<DashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     final auth = Provider.of<AuthProvider>(context);
-   
+
     return Scaffold(
       appBar: AppBar(
-        
         actions: [
-          TextButton(onPressed: (){}, child: const Icon(Icons.settings),),
+          TextButton(
+            onPressed: () {},
+            child: const Icon(Icons.settings),
+          ),
         ],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const CircleAvatar(child: Icon(Icons.person),),
-            const SizedBox(width: 10,),
-            Text(auth.authData.username!=null ? 'welcome ${auth.authData.username}' : 'Welcome Behnam Jafari',style:const TextStyle(fontSize: 12),),
-            Text('${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}' , style: const TextStyle(fontSize: 12),), 
+            Row(
+              children: [
+                const CircleAvatar(
+                  child: Icon(Icons.person),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  auth.authData.username != null
+                      ? 'welcome ${auth.authData.username}'
+                      : 'Welcome Behnam Jafari',
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+              style: const TextStyle(fontSize: 12),
+            ),
           ],
-        ),  
+        ),
       ),
-      body: Consumer<ProjectsProvider>(builder: (context, projectProvider, child) {
+      body: Consumer<ProjectsProvider>(
+          builder: (context, projectProvider, child) {
         return ListView.builder(
           itemCount: projectProvider.projectsList.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () => context.go('/projectDetails/${projectProvider.projectsList[index].id}',extra: projectProvider.projectsList[index].id),
+              onTap: () => context.go(
+                  '/projectDetails/${projectProvider.projectsList[index].id}',
+                  extra: projectProvider.projectsList[index].id),
               child: Card(
                 child: ListTile(
                   leading: Container(
                     width: 100,
                     padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    border: Border.all(),
-                   borderRadius: BorderRadius.circular(2)
-                  ),  
-                  child:  Center(child: Text(projectProvider.projectsList[index].author!)),),
-                  trailing: Text(projectProvider.projectsList[index].createdAt!),
-                  
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(2)),
+                    child: Center(
+                        child:
+                            Text(projectProvider.projectsList[index].author!)),
+                  ),
+                  trailing:
+                      Text(projectProvider.projectsList[index].createdAt!),
                   title: Text(projectProvider.projectsList[index].clientName!),
                 ),
               ),
             );
-          },    
+          },
         );
       }),
       floatingActionButton: FloatingActionButton(
@@ -83,157 +108,77 @@ class _DashScreenState extends State<DashScreen> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                
-                title: const Text('Add Tile'),
-                content: Container(
-                  width: 700,
-                  child: Form(
+                alignment: Alignment.center,
+                title: const Text('Add Project'),
+                content: FormBuilder(
                     key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: _textController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Project Name',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the project name';
-                                  }
-                                  return null;
-                                },
+                    child: SizedBox(
+                      width: 700,
+                      height: 1000,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: FormBuilderTextField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Title',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    name: 'title'),
                               ),
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Client Name',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the client name';
-                                  }
-                                  return null;
-                                },
+                              const SizedBox(
+                                width: 20,
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Project Start Date',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the project start date';
-                                  }
-                                  return null;
-                                },
+                              Expanded(
+                                child: FormBuilderTextField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Client Name',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    name: 'clientName'),
                               ),
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Project End Date',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the project end date';
-                                    
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Project Status',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the project status';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Project Budget',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter the project budget';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16.0),
-                        TextFormField(
-                          minLines: 5,
-                          maxLines: 6,
-                          decoration: const InputDecoration(
-                            labelText: 'Project Description',
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                            ],
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the project description';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: _submitForm,
-                              child: const Text('Submit'),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                         const Divider(height: 40,),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: FormBuilderCheckbox(
+                                  name: 'hydro',
+                                  title: Text('Hydro Test'),
+                                ),
+                              ),
+                              Expanded(
+                                child: FormBuilderCheckbox(
+                                  name: 'materialTest',
+                                  title: Text('Material Test'),
+                                ),
+                              ),
+                              Expanded(
+                                child: FormBuilderCheckbox(
+                                  name: 'finalBook',
+                                  title: Text('Final Book Submission'),
+                                ),
+                              ),
+                              Expanded(
+                                child: FormBuilderCheckbox(
+                                  name: 'cvTest',
+                                  title: Text('CV Test'),
+                              ),),
+                               Expanded(
+                                  child: FormBuilderCheckbox(
+                                      name: 'functionalTest',
+                                      title: Text('Functional Test'),),),
+                              // Expanded(
+                              //     child:
+                              //         FormBuilderDateTimePicker(name: 'date'))
+                            ],
+                          )
+                        ],
+                      ),
+                    )),
               );
             },
           );
