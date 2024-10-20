@@ -91,11 +91,11 @@ class _DashScreenState extends State<DashScreen> {
                         borderRadius: BorderRadius.circular(2)),
                     child: Center(
                         child:
-                            Text(projectProvider.projectsList[index].author!)),
+                            Text(projectProvider.projectsList[index].clientContractor!)),
                   ),
                   trailing:
-                      Text(projectProvider.projectsList[index].createdAt!),
-                  title: Text(projectProvider.projectsList[index].clientName!),
+                      Text(projectProvider.projectsList[index].komDate!.toString()),
+                  title: Text(projectProvider.projectsList[index].deliveryPlace!),
                 ),
               ),
             );

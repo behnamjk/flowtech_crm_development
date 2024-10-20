@@ -10,164 +10,198 @@ class ProjectsProvider with ChangeNotifier {
 
   Project get projectData => _projectData;
 
-  List<Project> _projectsList = [
-    Project(
-      projectTitle: 'Project A',
-      id: 'P001',
-      author: 'Azade Qasemi',
-      clientName: 'Client A',
-      description: 'Project description A',
-      createdAt: '2024-01-15',
-      updatedAt: '2024-02-15',
-      endedAt: '2024-09-10',
-      finalBookSubmission: true,
-      materialTest: true,
-      hydroTest: false,
-      seatLeakageTest: true,
-      functionalTest: false,
-      cvTest: true,
-      komDate: DateTime.now(),
-      pimDate: DateTime.now(),
-      apgSubmitDate: DateTime.now(),
-      advancedPaymentDate: DateTime.now(),
-      manufactutingStartDate: DateTime.now(),
-      inceptionPlace: 'Factory C',
-      deliveryPlace: 'Warehouse Z',
-      deliveryDate: DateTime.now(),
-    ),
-    Project(
-      projectTitle: 'Project B',
-      id: 'P002',
-      author: 'Farzane Karim',
-      clientName: 'Client B',
-      description: 'Project description B',
-      createdAt: '2024-02-20',
-      updatedAt: '2024-03-22',
-      endedAt: '2024-09-20',
-      finalBookSubmission: false,
-      materialTest: true,
-      hydroTest: true,
-      seatLeakageTest: false,
-      functionalTest: true,
-      cvTest: false,
-      komDate: DateTime.now(),
-      pimDate: DateTime.now(),
-      apgSubmitDate: DateTime.now(),
-      advancedPaymentDate: DateTime.now(),
-      manufactutingStartDate: DateTime.now(),
-      inceptionPlace: 'Factory C',
-      deliveryPlace: 'Warehouse Z',
-      deliveryDate: DateTime.now(),
-    ),
-    Project(
-      projectTitle: 'Project C',
-      id: 'P003',
-      author: 'Armin Morshed',
-      clientName: 'Client C',
-      description: 'Project description C',
-      createdAt: '2024-03-10',
-      updatedAt: '2024-04-05',
-      endedAt: '2024-10-01',
-      finalBookSubmission: true,
-      materialTest: false,
-      hydroTest: true,
-      seatLeakageTest: true,
-      functionalTest: true,
-      cvTest: true,
-      komDate: DateTime.now(),
-      pimDate: DateTime.now(),
-      apgSubmitDate: DateTime.now(),
-      advancedPaymentDate: DateTime.now(),
-      manufactutingStartDate: DateTime.now(),
-      inceptionPlace: 'Factory C',
-      deliveryPlace: 'Warehouse Z',
-      deliveryDate: DateTime.now(),
-    ),
-  ];
+  final List<Project> _projectsList = [
+  Project(
+    id: 'PRJ-1',
+    projectRefNo: 'Project 1 Ref No',
+    clientContractor: 'Client A',
+    poLoiDate: DateTime.now().subtract(Duration(days: 10)),
+    poValue: 100000,
+    deliveryTime: '30 days',
+    deliveryPlace: 'Location A',
+    shipmentMeans: 'Truck',
+    partialShipment: false,
+    advancedPaymentDateValue: DateTime.now().subtract(Duration(days: 5)),
+    advancedPaymentValue: 20000,
+    interimPayments: null, // Can be a list of dummy `DateTime` for payments
+    balancePayment2DateValue: DateTime.now().subtract(Duration(days: 2)),
+    balancePayment2Value: 10000,
+    balancePaymentValueDate: DateTime.now().add(Duration(days: 5)),
+    balancePaymentValue: 20000,
+    retentionValueDate: DateTime.now().add(Duration(days: 15)),
+    retentionValue: 5000,
+    apgType: 'Performance Guarantee',
+    apgSubmissionDate: DateTime.now().subtract(Duration(days: 15)),
+    pbgType: 'Advance Payment Guarantee',
+    pbgSubmissionDate: DateTime.now().subtract(Duration(days: 10)),
+    piSubmissionForAdPayment: true,
+    projectStartingDate: DateTime.now().subtract(Duration(days: 40)),
+    komDate: DateTime.now().subtract(Duration(days: 20)),
+    pimDate: DateTime.now().subtract(Duration(days: 15)),
+    deliveryTimeAsPerTs: DateTime.now().add(Duration(days: 20)),
+    plannedDateForDocumentsApproval: DateTime.now().add(Duration(days: 5)),
+    dataSheetValveListApprovalDate: DateTime.now().subtract(Duration(days: 2)),
+    drawingsApprovalDate: DateTime.now().subtract(Duration(days: 5)),
+    itpApprovalDate: DateTime.now().subtract(Duration(days: 10)),
+    manufacturingStartDate: DateTime.now().subtract(Duration(days: 30)),
+    progressReportCutoffDate: DateTime.now().add(Duration(days: 5)),
+    inspectionPlace: 'Factory A',
+    materialTest: true,
+    hydroTest: true,
+    visualAndDimensional: true,
+    seatLeakageTest: true,
+    functionalTest: true,
+    cvTest: true,
+    inStatus: 'In Progress',
+    inDates: null, // Can be a list of dummy `DateTime` for inspection dates
+    finalBookIndexSubmissionDate: DateTime.now().add(Duration(days: 10)),
+    materialDispatch: true,
+  ),
+  // Add more projects with similar data, adjusting values as needed
+];
 
   List<Project> get projectsList {
     return [..._projectsList];
   }
 
   void updateProject(String field, dynamic value) {
-    switch (field) {
-      case 'projectTitle':
-        _projectData = _projectData.copyWith(projectTitle: value as String);
-        break;
-      case 'id':
-        _projectData = _projectData.copyWith(id: value as String);
-        break;
-      case 'author':
-        _projectData = _projectData.copyWith(author: value as String);
-        break;
-      case 'clientName':
-        _projectData = _projectData.copyWith(clientName: value as String);
-        break;
-      case 'description':
-        _projectData = _projectData.copyWith(description: value as String);
-        break;
-      case 'createdAt':
-        _projectData = _projectData.copyWith(createdAt: value as String);
-        break;
-      case 'updatedAt':
-        _projectData = _projectData.copyWith(updatedAt: value as String);
-        break;
-      case 'endedAt':
-        _projectData = _projectData.copyWith(endedAt: value as String);
-        break;
-      case 'finalBookSubmission':
-        _projectData =
-            _projectData.copyWith(finalBookSubmission: value as bool);
-        break;
-      case 'materialTest':
-        _projectData = _projectData.copyWith(materialTest: value as bool);
-        break;
-      case 'hydroTest':
-        _projectData = _projectData.copyWith(hydroTest: value as bool);
-        break;
-      case 'seatLeakageTest':
-        _projectData = _projectData.copyWith(seatLeakageTest: value as bool);
-        break;
-      case 'functionalTest':
-        _projectData = _projectData.copyWith(functionalTest: value as bool);
-        break;
-      case 'cvTest':
-        _projectData = _projectData.copyWith(cvTest: value as bool);
-        break;
-      case 'komDate':
-        _projectData = _projectData.copyWith(komDate: value as DateTime);
-        break;
-      case 'pimDate':
-        _projectData = _projectData.copyWith(pimDate: value as DateTime);
-        break;
-      case 'apgSubmitDate':
-        _projectData = _projectData.copyWith(apgSubmitDate: value as DateTime);
-        break;
-      case 'advancedPaymentDate':
-        _projectData =
-            _projectData.copyWith(advancedPaymentDate: value as DateTime);
-        break;
-      case 'manufactutingStartDate':
-        _projectData =
-            _projectData.copyWith(manufactutingStartDate: value as DateTime);
-        break;
-      case 'progressReportCutoffDate':
-        _projectData =
-            _projectData.copyWith(progressReportCutoffDate: value as DateTime);
-        break;
-      case 'inceptionPlace':
-        _projectData = _projectData.copyWith(inceptionPlace: value as String);
-        break;
-      case 'deliveryPlace':
-        _projectData = _projectData.copyWith(deliveryPlace: value as String);
-        break;
-      case 'deliveryDate':
-        _projectData = _projectData.copyWith(deliveryDate: value as DateTime);
-      default:
-        throw Exception('Invalid field name: $field');
-    }
-    notifyListeners(); // Notify listeners when a field is updated
+  switch (field) {
+    case 'projectRefNo':
+      _projectData = _projectData.copyWith(projectRefNo: value as String);
+      break;
+    case 'clientContractor':
+      _projectData = _projectData.copyWith(clientContractor: value as String);
+      break;
+    case 'poLoiDate':
+      _projectData = _projectData.copyWith(poLoiDate: value as DateTime);
+      break;
+    case 'poValue':
+      _projectData = _projectData.copyWith(poValue: value as int);
+      break;
+    case 'deliveryTime':
+      _projectData = _projectData.copyWith(deliveryTime: value as String);
+      break;
+    case 'deliveryPlace':
+      _projectData = _projectData.copyWith(deliveryPlace: value as String);
+      break;
+    case 'shipmentMeans':
+      _projectData = _projectData.copyWith(shipmentMeans: value as String);
+      break;
+    case 'partialShipment':
+      _projectData = _projectData.copyWith(partialShipment: value as bool);
+      break;
+    case 'advancedPaymentDateValue':
+      _projectData = _projectData.copyWith(advancedPaymentDateValue: value as DateTime);
+      break;
+    case 'advancedPaymentValue':
+      _projectData = _projectData.copyWith(advancedPaymentValue: value as int);
+      break;
+    case 'interimPayments':
+      // Handle interim payments as a list of DateTime objects
+      _projectData = _projectData.copyWith(interimPayments: value as DateTime);
+      break;
+    case 'balancePayment2DateValue':
+      _projectData = _projectData.copyWith(balancePayment2DateValue: value as DateTime);
+      break;
+    case 'balancePayment2Value':
+      _projectData = _projectData.copyWith(balancePayment2Value: value as int);
+      break;
+    case 'balancePaymentValueDate':
+      _projectData = _projectData.copyWith(balancePaymentValueDate: value as DateTime);
+      break;
+    case 'balancePaymentValue':
+      _projectData = _projectData.copyWith(balancePaymentValue: value as int);
+      break;
+    case 'retentionValueDate':
+      _projectData = _projectData.copyWith(retentionValueDate: value as DateTime);
+      break;
+    case 'retentionValue':
+      _projectData = _projectData.copyWith(retentionValue: value as int);
+      break;
+    case 'apgType':
+      _projectData = _projectData.copyWith(apgType: value as String);
+      break;
+    case 'apgSubmissionDate':
+      _projectData = _projectData.copyWith(apgSubmissionDate: value as DateTime);
+      break;
+    case 'pbgType':
+      _projectData = _projectData.copyWith(pbgType: value as String);
+      break;
+    case 'pbgSubmissionDate':
+      _projectData = _projectData.copyWith(pbgSubmissionDate: value as DateTime);
+      break;
+    case 'piSubmissionForAdPayment':
+      _projectData = _projectData.copyWith(piSubmissionForAdPayment: value as bool);
+      break;
+    case 'projectStartingDate':
+      _projectData = _projectData.copyWith(projectStartingDate: value as DateTime);
+      break;
+    case 'komDate':
+      _projectData = _projectData.copyWith(komDate: value as DateTime);
+      break;
+    case 'pimDate':
+      _projectData = _projectData.copyWith(pimDate: value as DateTime);
+      break;
+    case 'deliveryTimeAsPerTs':
+      _projectData = _projectData.copyWith(deliveryTimeAsPerTs: value as DateTime);
+      break;
+    case 'plannedDateForDocumentsApproval':
+      _projectData = _projectData.copyWith(plannedDateForDocumentsApproval: value as DateTime);
+      break;
+    case 'dataSheetValveListApprovalDate':
+      _projectData = _projectData.copyWith(dataSheetValveListApprovalDate: value as DateTime);
+      break;
+    case 'drawingsApprovalDate':
+      _projectData = _projectData.copyWith(drawingsApprovalDate: value as DateTime);
+      break;
+    case 'itpApprovalDate':
+      _projectData = _projectData.copyWith(itpApprovalDate: value as DateTime);
+      break;
+    case 'manufacturingStartDate':
+      _projectData = _projectData.copyWith(manufacturingStartDate: value as DateTime);
+      break;
+    case 'progressReportCutoffDate':
+      _projectData = _projectData.copyWith(progressReportCutoffDate: value as DateTime);
+      break;
+    case 'inspectionPlace':
+      _projectData = _projectData.copyWith(inspectionPlace: value as String);
+      break;
+    case 'materialTest':
+      _projectData = _projectData.copyWith(materialTest: value as bool);
+      break;
+    case 'hydroTest':
+      _projectData = _projectData.copyWith(hydroTest: value as bool);
+      break;
+    case 'visualAndDimensional':
+      _projectData = _projectData.copyWith(visualAndDimensional: value as bool);
+      break;
+    case 'seatLeakageTest':
+      _projectData = _projectData.copyWith(seatLeakageTest: value as bool);
+      break;
+    case 'functionalTest':
+      _projectData = _projectData.copyWith(functionalTest: value as bool);
+      break;
+    case 'cvTest':
+      _projectData = _projectData.copyWith(cvTest: value as bool);
+      break;
+    case 'inStatus':
+      _projectData = _projectData.copyWith(inStatus: value as String);
+      break;
+    case 'inDates':
+      // Handle inDates as a list of DateTime objects
+      _projectData = _projectData.copyWith(inDates: value as DateTime);
+      break;
+    case 'finalBookIndexSubmissionDate':
+      _projectData = _projectData.copyWith(finalBookIndexSubmissionDate: value as DateTime);
+      break;
+    case 'materialDispatch':
+      _projectData = _projectData.copyWith(materialDispatch: value as bool);
+      break;
+    default:
+      throw Exception('Invalid field name: $field');
   }
+  notifyListeners(); // Notify listeners when a field is updated
+}
 
   Future<void> addProject({
     required id,

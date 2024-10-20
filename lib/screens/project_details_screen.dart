@@ -14,7 +14,7 @@ class ProjectDetailsPage extends StatelessWidget {
         Provider.of<ProjectsProvider>(context).getProjectById(projectId);
     return Scaffold(
       appBar: AppBar(
-        title: Text(project.projectTitle!),
+        title: Text(project.clientContractor!),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
@@ -37,7 +37,7 @@ class ProjectDetailsPage extends StatelessWidget {
           children: [
             // Project Title
             Text(
-              project.projectTitle!,
+              project.id!,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class ProjectDetailsPage extends StatelessWidget {
 
             // Project Description
             Text(
-              project.description!,
+              project.apgType!,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.blueGrey[600],
@@ -112,31 +112,31 @@ class ProjectDetailsPage extends StatelessWidget {
             _buildDetailRow(
               context,
               'Author',
-              project.author!,
+              project.deliveryPlace!,
               Icons.person_outline,
             ),
             _buildDetailRow(
               context,
               'Client Name',
-              project.clientName!,
+              project.clientContractor!,
               Icons.business,
             ),
             _buildDetailRow(
               context,
               'Created At',
-              '${project.createdAt}',
+              '${project.komDate}',
               Icons.calendar_today_outlined,
             ),
             _buildDetailRow(
               context,
               'Updated At',
-              '${project.updatedAt}',
+              '${project.komDate}',
               Icons.update_outlined,
             ),
             _buildDetailRow(
               context,
               'Delivery Date',
-              '${project.deliveryDate}',
+              '${project.komDate}',
               Icons.delivery_dining_outlined,
             ),
             // Add more detail rows as needed
